@@ -41,6 +41,7 @@ class CurrenciesViewController: UITableViewController, CurrenciesViewProtocol, U
         view.backgroundColor = .white
         tableView.tableFooterView = UIView()
         tableView.register(CurrencyTableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.separatorStyle = .none
         searchBar()
     }
     

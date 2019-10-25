@@ -93,13 +93,13 @@ class MainViewController: UIViewController, MainViewProtocol {
     
     func setOutputCurrencyShortName(with shortName: String) {
         DispatchQueue.main.async {
-            self.outputCurrencyView.currencyShortNameButton.setTitle(shortName, for: .normal)
+            self.outputCurrencyView.currencyShortName = shortName
         }
     }
     
     func setInputCurrencyShortName(with shortName: String) {
         DispatchQueue.main.async {
-            self.inputCurrencyView.currencyShortNameButton.setTitle(shortName, for: .normal)
+            self.inputCurrencyView.currencyShortName = shortName
         }
     }
     

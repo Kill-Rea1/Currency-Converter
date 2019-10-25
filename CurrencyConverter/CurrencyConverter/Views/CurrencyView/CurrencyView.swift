@@ -33,6 +33,14 @@ class CurrencyView: UIView, CurrencyViewProtocol {
         return button
     }()
     
+    var currencyImageView: UIImageView = {
+        let iv = UIImageView(image: #imageLiteral(resourceName: "default"))
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        iv.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        return iv
+    }()
+    
     @objc
     private func handleCurrencyButtonTapped() {
         delegate?.didCurrencyChangeButtonTapped(with: self.tag)
@@ -65,13 +73,20 @@ class CurrencyView: UIView, CurrencyViewProtocol {
     }
     
     private func setupViews() {
-        addSubview(currencyShortNameButton)
+        let stackView = UIStackView(arrangedSubviews: [
+            currencyImageView, currencyShortNameButton
+        ])
+        stackView.alignment = .center
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(stackView)
         addSubview(valueLabel)
         
         NSLayoutConstraint.activate([
-            currencyShortNameButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            currencyShortNameButton.widthAnchor.constraint(equalToConstant: 100),
-            currencyShortNameButton.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
+            stackView.widthAnchor.constraint(equalToConstant: 125),
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             
             valueLabel.topAnchor.constraint(equalTo: currencyShortNameButton.bottomAnchor, constant: 8),
             valueLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
@@ -122,6 +137,9 @@ class CurrencyView: UIView, CurrencyViewProtocol {
     var currencyShortName: String! {
         didSet {
             currencyShortNameButton.setTitle(currencyShortName, for: .normal)
+            if let image = UIImage(named: currencyShortName) {
+                currencyImageView.image = image
+            }
         }
     }
     
